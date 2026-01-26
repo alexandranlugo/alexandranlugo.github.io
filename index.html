@@ -157,7 +157,7 @@
                 <!-- Project 5 -->
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="images/image-classifier.jpg" alt="Image Classification Project" />
+                        <img src="images/bp.jpg" alt="Image Classification Project" />
                         <div class="project-overlay">
                             <a href="https://github.com/alexandranlugo/Image-Classifier" class="btn-view" target="_blank">
                                 <i class="fab fa-github"></i> View on GitHub
@@ -340,7 +340,7 @@
         </div>
     </footer>
 
-    <!-- Smooth Scroll Script -->
+    <!-- Smooth Scroll & Animation Script -->
     <script>
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -365,6 +365,56 @@
                 nav.classList.add('scrolled');
             } else {
                 nav.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animations - Intersection Observer
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should animate
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate section titles
+            document.querySelectorAll('.section-title').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Animate about content paragraphs
+            document.querySelectorAll('.about-content p').forEach(el => {
+                el.classList.add('fade-in');
+                observer.observe(el);
+            });
+
+            // Animate project cards
+            document.querySelectorAll('.project-card').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Animate skill categories
+            document.querySelectorAll('.skill-category').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Animate contact items
+            document.querySelectorAll('.contact-item').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Animate certifications
+            const cert = document.querySelector('.certifications');
+            if (cert) {
+                cert.classList.add('fade-in');
+                observer.observe(cert);
             }
         });
     </script>
