@@ -805,13 +805,23 @@ section {
 /* Form Messages */
 .form-message {
 	margin-top: 1.5rem;
-	padding: 1.2rem;
+	padding: 1.5rem;
 	border-radius: 4px;
 	display: flex;
-	align-items: center;
-	gap: 0.75rem;
+	align-items: flex-start;
+	gap: 1rem;
 	font-weight: 600;
 	animation: slideDown 0.4s ease;
+}
+
+.form-message > div {
+	flex: 1;
+}
+
+.form-message p {
+	margin: 0.5rem 0 0 0;
+	font-weight: 400;
+	font-size: 0.95rem;
 }
 
 @keyframes slideDown {
@@ -833,7 +843,8 @@ section {
 
 .form-message.success i {
 	color: #28a745;
-	font-size: 1.2rem;
+	font-size: 1.5rem;
+	margin-top: 0.2rem;
 }
 
 .form-message.error {
@@ -844,7 +855,8 @@ section {
 
 .form-message.error i {
 	color: #dc3545;
-	font-size: 1.2rem;
+	font-size: 1.5rem;
+	margin-top: 0.2rem;
 }
 
 /* Button loading state */

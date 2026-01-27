@@ -285,6 +285,10 @@
                 <!-- Contact Form -->
                 <div class="contact-form-wrapper animate-on-scroll">
                     <form id="contact-form" action="https://formspree.io/f/mbdoakdr" method="POST" class="contact-form">
+                        
+                        <!-- Honeypot field (hidden from humans, visible to bots) -->
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                        
                         <div class="form-group">
                             <label for="name">Name *</label>
                             <input type="text" id="name" name="name" required placeholder="Your name">
@@ -308,17 +312,25 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
-                        
-                        <!-- Success Message (hidden by default) -->
-                        <div id="form-success" class="form-message success" style="display: none;">
-                            <i class="fas fa-check-circle"></i> Thank you for reaching out! I'll get back to you soon.
-                        </div>
-                        
-                        <!-- Error Message (hidden by default) -->
-                        <div id="form-error" class="form-message error" style="display: none;">
-                            <i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try again or email me directly.
-                        </div>
                     </form>
+                    
+                    <!-- Success Message (hidden by default, shows after submission) -->
+                    <div id="form-success" class="form-message success" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Thank you for reaching out!</strong>
+                            <p>I'll review your message and get back to you soon.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Error Message (hidden by default) -->
+                    <div id="form-error" class="form-message error" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>
+                            <strong>Oops! Something went wrong.</strong>
+                            <p>Please try again or reach out via LinkedIn.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Social Links -->
@@ -403,13 +415,21 @@
             });
         });
 
-        // Contact Form AJAX Submission
+        // Contact Form AJAX Submission with Honeypot
         const form = document.getElementById('contact-form');
         const successMessage = document.getElementById('form-success');
         const errorMessage = document.getElementById('form-error');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Check honeypot - if filled, it's a bot
+            const honeypot = form.querySelector('input[name="_gotcha"]');
+            if (honeypot && honeypot.value) {
+                // Bot detected - silently reject
+                console.log('Bot detected');
+                return false;
+            }
             
             // Get form data
             const formData = new FormData(form);
@@ -431,26 +451,21 @@
                 });
                 
                 if (response.ok) {
-                    // Success!
-                    form.reset();
-                    successMessage.style.display = 'block';
+                    // Success! Hide form and show success message
+                    form.style.display = 'none';
+                    successMessage.style.display = 'flex';
                     errorMessage.style.display = 'none';
-                    
-                    // Hide success message after 5 seconds
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 5000);
                 } else {
                     // Error
-                    errorMessage.style.display = 'block';
+                    errorMessage.style.display = 'flex';
                     successMessage.style.display = 'none';
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
                 }
             } catch (error) {
                 // Network error
-                errorMessage.style.display = 'block';
+                errorMessage.style.display = 'flex';
                 successMessage.style.display = 'none';
-            } finally {
-                // Re-enable submit button
                 submitBtn.innerHTML = originalBtnText;
                 submitBtn.disabled = false;
             }
