@@ -281,51 +281,50 @@
             <p class="section-subtitle animate-on-scroll">I'm actively seeking client-facing analytics, product data science, technical consulting, or cross-functional data roles starting Summer/Fall 2026.</p>
             
             <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item animate-on-scroll">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <strong>Email</strong>
-                            <a href="mailto:alexandranlugo@gmail.com">alexandranlugo@gmail.com</a>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper animate-on-scroll">
+                    <form action="https://formspree.io/f/mbdoakdr" method="POST" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="Your name">
                         </div>
-                    </div>
-                    <div class="contact-item animate-on-scroll">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <strong>Phone</strong>
-                            <span>(786) 566-6465</span>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
                         </div>
-                    </div>
-                    <div class="contact-item animate-on-scroll">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <strong>Location</strong>
-                            <span>New York, NY</span>
+                        
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" placeholder="Your company (optional)">
                         </div>
-                    </div>
-                    <div class="contact-item animate-on-scroll">
-                        <i class="fas fa-graduation-cap"></i>
-                        <div>
-                            <strong>Graduation</strong>
-                            <span>May 2026 (NYU Data Science)</span>
+                        
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required rows="5" placeholder="Tell me about the opportunity or how I can help..."></textarea>
                         </div>
-                    </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
                 </div>
 
+                <!-- Social Links -->
                 <div class="social-links animate-on-scroll">
+                    <p class="social-heading">Or connect with me on:</p>
                     <a href="https://www.linkedin.com/in/lugoalexandra/" target="_blank" class="social-btn">
                         <i class="fab fa-linkedin"></i> LinkedIn
                     </a>
                     <a href="https://github.com/alexandranlugo" target="_blank" class="social-btn">
                         <i class="fab fa-github"></i> GitHub
                     </a>
-                    <a href="mailto:alexandranlugo@gmail.com" class="social-btn">
-                        <i class="fas fa-envelope"></i> Email
-                    </a>
                 </div>
 
+                <!-- Resume Download -->
                 <div class="resume-download animate-on-scroll">
-                    <a href="assets/Alexandra_Lugo_Resume.pdf" class="btn btn-primary" download>
+                    <a href="assets/Alexandra_Lugo_Resume.pdf" class="btn btn-secondary" download>
                         <i class="fas fa-download"></i> Download Full Resume
                     </a>
                 </div>
@@ -387,14 +386,9 @@
             const animateElements = document.querySelectorAll('.animate-on-scroll');
             
             animateElements.forEach((el, index) => {
-                // Add base animation class
                 el.classList.add('fade-in');
-                
-                // Add stagger delay based on index within its section
-                const delay = (index % 6) * 0.1; // Stagger up to 6 items
+                const delay = (index % 6) * 0.1;
                 el.style.transitionDelay = `${delay}s`;
-                
-                // Observe the element
                 observer.observe(el);
             });
         });
